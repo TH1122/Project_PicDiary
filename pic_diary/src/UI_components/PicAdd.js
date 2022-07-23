@@ -1,10 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
 import PicAddStory from "../components/PicAddStory";
 
-
-
 const PicAdd = () => {
+  const [text, setText] = useState("");
   const PicContainer = styled.div`
     background-color: #f2f2f2;
     width: 330px;
@@ -32,7 +31,7 @@ const PicAdd = () => {
         <div>
             <PicContainer className="picContainer">
                 <div className="photoContainer" ></div>
-                <PicAddStory></PicAddStory>
+                <PicAddStory text={text} setText={setText}></PicAddStory>
             </PicContainer>  
         </div>
 )}
