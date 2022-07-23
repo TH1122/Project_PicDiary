@@ -1,9 +1,10 @@
 import React from 'react';
+import PicAdd from '../UI_components/PicAdd';
 
 const Add = () => {
   return (
     <section className="add">
-        <div>Add</div>
+        <PicAdd></PicAdd>
     </section>
   );
 };
