@@ -58,8 +58,11 @@ const Add = () => {
             return (
               <PicAdd
                 key={picData.id}
+                data={el}
                 picture={el.picture}
                 content={el.picture}
+                picData={picData}
+                setPicData={setPicData}
               ></PicAdd>
             );
           })}
