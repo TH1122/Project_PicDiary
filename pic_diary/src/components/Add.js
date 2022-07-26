@@ -31,7 +31,11 @@ const Add = () => {
       align-items: center;
     }
   `;
-  const Picadd_wrapper = styled.section``;
+  const Picadd_wrapper = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
 
   return (
     <>
