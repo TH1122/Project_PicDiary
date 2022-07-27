@@ -1,9 +1,18 @@
-import React from 'react';
+import React from "react";
 
-const List = () => {
+const List = ({ picData }) => {
   return (
     <section className="list">
-        <div>List</div>
+      <ul>
+        LIST
+        {picData.map((el) => {
+          return (
+            <>
+              <li key={el.id}>{el.date}</li>
+            </>
+          );
+        })}
+      </ul>
     </section>
   );
 };
