@@ -18,14 +18,19 @@ function App() {
           <main>
             <MenuBar />
             <section className="main">
-              {/* <Home />
-            <Add />
-            <List /> */}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/list" element={<List picData={picData} />} />
                 <Route
                   path="/add"
+                  element={<Add picData={picData} setPicData={setPicData} />}
+                />
+                <Route
+                  path="/add"
+                  element={<Add picData={picData} setPicData={setPicData} />}
+                />
+                <Route
+                  path="/add/date"
                   element={<Add picData={picData} setPicData={setPicData} />}
                 />
               </Routes>

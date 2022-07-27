@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const List = ({ picData }) => {
   return (
@@ -8,7 +9,9 @@ const List = ({ picData }) => {
         {picData.map((el) => {
           return (
             <>
-              <li key={el.id}>{el.date}</li>
+              <Link to="/add/date">
+                <li key={el.id}>{el.date}</li>
+              </Link>
             </>
           );
         })}
