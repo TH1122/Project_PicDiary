@@ -26,9 +26,9 @@ const PicAdd = ({ data, picture, content, setPicData, picData }) => {
       background-color: #c2c2c2;
     }
   `;
-  const onClick = () => {
-    console.log(picture);
-  };
+  // const onClick = () => {
+  //   console.log(picData);
+  // };
 
   return (
     <div>

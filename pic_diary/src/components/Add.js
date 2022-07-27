@@ -3,8 +3,7 @@ import styled from "styled-components";
 import PicAdd from "../UI_components/PicAdd";
 import { dummyData } from "../data/dummyData";
 
-const Add = () => {
-  const [picData, setPicData] = useState(dummyData);
+const Add = ({ picData, setPicData }) => {
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -57,7 +56,7 @@ const Add = () => {
           {picData.map((el) => {
             return (
               <PicAdd
-                key={picData.id}
+                key={el.id}
                 data={el}
                 picture={el.picture}
                 content={el.picture}
