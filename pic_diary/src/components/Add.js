@@ -40,14 +40,14 @@ const Add = ({ picData, setPicData }) => {
     <>
       <Add_container>
         <Info_container>
-          <div className="info_wrapper">
-            <div className="date">
+          <form className="info_wrapper">
+            <label>
               날짜 :<input></input>
-            </div>
-            <div className="title">
+            </label>
+            <label>
               제목 :<input></input>
-            </div>
-          </div>
+            </label>
+          </form>
           <div className="icon_wrapper">
             <button>사진추가</button>
           </div>
