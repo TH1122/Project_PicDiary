@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PicAdd from "../UI_components/PicAdd";
-import { dummyData } from "../data/dummyData";
 
 const Add = ({ picData, setPicData }) => {
   const Add_container = styled.div`
@@ -10,7 +9,7 @@ const Add = ({ picData, setPicData }) => {
     display: flex;
     flex-direction: column;
   `;
-  const Info_container = styled.section`
+  const Info_container = styled.form`
     height: 76px;
     background-color: #f4eee2;
     margin-bottom: 20px;
@@ -36,18 +35,34 @@ const Add = ({ picData, setPicData }) => {
     align-items: center;
   `;
 
+  const handleSubmit = (e) => {
+    const getRandomNumber = (min, max) => {
+      return parseInt(Math.random() * (Number(max) - Number(min) + 2));
+    };
+    setPicData([
+      ...picData,
+      {
+        id: picData.length,
+        date: e.target[0].value,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        content: e.target[1].value,
+      },
+    ]);
+  };
+  console.log(picData);
+
   return (
     <>
       <Add_container>
-        <Info_container>
-          <form className="info_wrapper">
+        <Info_container onSubmit={handleSubmit}>
+          <div className="info_wrapper">
             <label>
-              날짜 :<input></input>
+              날짜 :<input type="date"></input>
             </label>
             <label>
               제목 :<input></input>
             </label>
-          </form>
+          </div>
           <div className="icon_wrapper">
             <button>사진추가</button>
           </div>
