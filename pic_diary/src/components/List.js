@@ -9,7 +9,7 @@ const List = ({ picData }) => {
         {picData.map((el) => {
           return (
             <>
-              <Link to="/add/date">
+              <Link to={`/add/${el.date}`} data={el}>
                 <li key={el.id}>{el.date}</li>
               </Link>
             </>

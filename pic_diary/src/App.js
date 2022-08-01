@@ -30,7 +30,7 @@ function App() {
                   element={<Add picData={picData} setPicData={setPicData} />}
                 />
                 <Route
-                  path="/add/date"
+                  path="/add/:date"
                   element={<Add picData={picData} setPicData={setPicData} />}
                 />
               </Routes>
