@@ -40,8 +40,16 @@ const Add = ({ picData, setPicData }) => {
       {
         id: picData.length,
         date: e.target[0].value,
-        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-        content: e.target[1].value,
+        content: [
+          {
+            date_id: 0,
+            picture: `https://picsum.photos/id/${getRandomNumber(
+              1,
+              98
+            )}/300/300`,
+            text: e.target[1].value,
+          },
+        ],
       },
     ]);
     navigate(`/add/${e.target[0].value}`);
