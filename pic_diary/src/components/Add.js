@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import PicAdd from "../UI_components/PicAdd";
+import { useNavigate } from "react-router-dom";
 
 const Add = ({ picData, setPicData }) => {
-  const { date } = useParams();
-  const [newPicData, setNewPicData] = useState([]);
+  let navigate = useNavigate();
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -32,11 +30,6 @@ const Add = ({ picData, setPicData }) => {
       align-items: center;
     }
   `;
-  const Picadd_wrapper = styled.section`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
 
   const handleSubmit = (e) => {
     const getRandomNumber = (min, max) => {
@@ -51,15 +44,8 @@ const Add = ({ picData, setPicData }) => {
         content: e.target[1].value,
       },
     ]);
+    navigate(`/add/${e.target[0].value}`);
   };
-
-  const test = (e) => {
-    console.log(date);
-  };
-
-  useEffect(() => {
-    setNewPicData(picData.filter((el) => el.date === date));
-  }, []);
 
   return (
     <>
@@ -77,21 +63,6 @@ const Add = ({ picData, setPicData }) => {
             <button>사진추가</button>
           </div>
         </Info_container>
-        <button onClick={test}>test</button>
-        <Picadd_wrapper>
-          {newPicData.map((el) => {
-            return (
-              <PicAdd
-                key={el.id}
-                data={el}
-                picture={el.picture}
-                content={el.picture}
-                picData={picData}
-                setPicData={setPicData}
-              ></PicAdd>
-            );
-          })}
-        </Picadd_wrapper>
       </Add_container>
     </>
   );
