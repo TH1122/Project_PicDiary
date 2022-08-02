@@ -7,6 +7,7 @@ const AddByDate = ({ picData, setPicData }) => {
   const { date } = useParams();
   const [newPicData, setNewPicData] = useState([]);
   const [title, setTitle] = useState("");
+  const [data, setData] = useState(null);
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -43,27 +44,34 @@ const AddByDate = ({ picData, setPicData }) => {
     const getRandomNumber = (min, max) => {
       return parseInt(Math.random() * (Number(max) - Number(min) + 2));
     };
-    setPicData([
-      ...picData,
-      {
-        id: picData.length,
-        date: e.target[0].value,
+    setData(
+      (data.content[data.content.length] = {
+        date_id: data.content.length,
         picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-        content: e.target[1].value,
-      },
-    ]);
+        text: "",
+      })
+    );
   };
 
-  const test = (e) => {
-    console.log(date);
-  };
+  // const test = (e) => {
+  //   console.log(newPicData);
+  //   console.log(data.title);
+  //   console.log(data);
+  // };
+  useEffect(() => {
+    setNewPicData(
+      ...picData.filter((el) => el.date === date).map((el) => el.content)
+    );
+    setData(...picData.filter((el) => el.date === date));
+    setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
+  }, []);
 
   useEffect(() => {
     setNewPicData(
       ...picData.filter((el) => el.date === date).map((el) => el.content)
     );
-    setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
-  }, []);
+    setData(...picData.filter((el) => el.date === date));
+  }, [data]);
 
   return (
     <>
@@ -81,7 +89,7 @@ const AddByDate = ({ picData, setPicData }) => {
             <button>사진추가</button>
           </div>
         </Info_container>
-        <button onClick={test}>test</button>
+        {/* <button onClick={test}>test</button> */}
         <Picadd_wrapper>
           {newPicData.map((el) => {
             return (
