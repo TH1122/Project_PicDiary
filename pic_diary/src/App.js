@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Add from "./components/Add";
 import List from "./components/List";
 import { dummyData } from "./data/dummyData";
+import AddByDate from "./components/AddByDate";
 
 function App() {
   const [picData, setPicData] = useState(dummyData);
@@ -26,12 +27,10 @@ function App() {
                   element={<Add picData={picData} setPicData={setPicData} />}
                 />
                 <Route
-                  path="/add"
-                  element={<Add picData={picData} setPicData={setPicData} />}
-                />
-                <Route
                   path="/add/:date"
-                  element={<Add picData={picData} setPicData={setPicData} />}
+                  element={
+                    <AddByDate picData={picData} setPicData={setPicData} />
+                  }
                 />
               </Routes>
             </section>

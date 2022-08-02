@@ -6,31 +6,49 @@ export const dummyData = [
   {
     id: 1,
     date: "2022-02-24",
-    picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-    content: `오랜만의 외출`,
+    content: [
+      {
+        date_id: 1,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: "인상적",
+      },
+      {
+        date_id: 2,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: `하하`,
+      },
+      {
+        date_id: 3,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: `추억`,
+      },
+    ],
   },
   {
     id: 2,
-    date: "2022-02-24",
-    picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-    content: `하하`,
+    date: "2022-04-12",
+    content: [
+      {
+        date_id: 1,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: "상쾌함",
+      },
+    ],
   },
   {
     id: 3,
-    date: "2022-02-24",
-    picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-    content: `추억`,
-  },
-  {
-    id: 4,
-    date: "2022-04-12",
-    picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-    content: `상쾌함`,
-  },
-  {
-    id: 5,
     date: "2022-07-01",
-    picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-    content: `ㅎㅎㅎㅎ`,
+    content: [
+      {
+        date_id: 1,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: "ㅎㅎㅎㅎ",
+      },
+      {
+        date_id: 2,
+        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+        text: "운이 좋았다",
+      },
+    ],
   },
 ];
