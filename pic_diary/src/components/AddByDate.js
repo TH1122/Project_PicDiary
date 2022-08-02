@@ -6,6 +6,7 @@ import PicAdd from "../UI_components/PicAdd";
 const AddByDate = ({ picData, setPicData }) => {
   const { date } = useParams();
   const [newPicData, setNewPicData] = useState([]);
+  const [title, setTitle] = useState("");
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -61,7 +62,7 @@ const AddByDate = ({ picData, setPicData }) => {
     setNewPicData(
       ...picData.filter((el) => el.date === date).map((el) => el.content)
     );
-    console.log(picData);
+    setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
   }, []);
 
   return (
@@ -70,10 +71,10 @@ const AddByDate = ({ picData, setPicData }) => {
         <Info_container onSubmit={handleSubmit}>
           <div className="info_wrapper">
             <label>
-              날짜 :<input type="date"></input>
+              날짜 :<input type="date" value={date} readOnly="true"></input>
             </label>
             <label>
-              제목 :<input></input>
+              제목 :<input value={title} readOnly="true"></input>
             </label>
           </div>
           <div className="icon_wrapper">
