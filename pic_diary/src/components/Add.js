@@ -40,6 +40,7 @@ const Add = ({ picData, setPicData }) => {
       {
         id: picData.length,
         date: e.target[0].value,
+        title: e.target[1].value,
         content: [
           {
             date_id: 0,
@@ -47,7 +48,7 @@ const Add = ({ picData, setPicData }) => {
               1,
               98
             )}/300/300`,
-            text: e.target[1].value,
+            text: "",
           },
         ],
       },
