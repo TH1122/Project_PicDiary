@@ -20,7 +20,7 @@ function App() {
             <MenuBar />
             <section className="main">
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home picData={picData} />} />
                 <Route path="/list" element={<List picData={picData} />} />
                 <Route
                   path="/add"
