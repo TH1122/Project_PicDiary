@@ -61,7 +61,9 @@ const AddByDate = ({ picData, setPicData }) => {
   }, []);
 
   useEffect(() => {
-    console.log("picData changed");
+    setNewPicData(
+      ...picData.filter((el) => el.date === date).map((el) => el.content)
+    );
   }, [picData]);
 
   useEffect(() => {
