@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PicAddStory from "../components/PicAddStory";
 
-const PicAdd = ({ data, picture, content, setPicData, picData }) => {
+const PicAdd = ({
+  data,
+  picture,
+  content,
+  setPicData,
+  picData,
+  date,
+  setIsChanged,
+}) => {
   const [text, setText] = useState("");
   const PicContainer = styled.div`
     background-color: #f2f2f2;
@@ -26,9 +34,6 @@ const PicAdd = ({ data, picture, content, setPicData, picData }) => {
       background-color: #c2c2c2;
     }
   `;
-  // const onClick = () => {
-  //   console.log(picData);
-  // };
 
   return (
     <div>
@@ -42,6 +47,8 @@ const PicAdd = ({ data, picture, content, setPicData, picData }) => {
           setText={setText}
           picData={picData}
           data={data}
+          date={date}
+          content={content}
           setPicData={setPicData}
         ></PicAddStory>
       </PicContainer>

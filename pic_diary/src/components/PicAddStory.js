@@ -1,6 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const PicAddStory = ({ data, text, setText, setPicData, picData }) => {
+const PicAddStory = ({
+  data,
+  text,
+  setText,
+  content,
+  setPicData,
+  picData,
+  date,
+}) => {
   const [button, setButton] = useState("활성화");
   const [readonly, setRO] = useState(true);
   const storyRef = useRef(null);
@@ -26,12 +34,21 @@ const PicAddStory = ({ data, text, setText, setPicData, picData }) => {
   };
 
   const onDeleteClick = () => {
-    setPicData(picData.filter((el) => el.id !== data.id));
+    let temp = picData;
+    temp.map((el) => {
+      if (el.date === date) {
+        el.content = el.content.filter(
+          (content) => content.text !== storyRef.current.value
+        );
+        console.log(el, "chagne");
+      }
+    });
+    setPicData(temp);
   };
 
   useEffect(() => {
-    storyRef.current.value = text;
-  });
+    storyRef.current.value = data.text;
+  }, []);
 
   return (
     <>
@@ -39,6 +56,7 @@ const PicAddStory = ({ data, text, setText, setPicData, picData }) => {
         className="storyWrapper"
         type="text"
         ref={storyRef}
+        value={data.text}
         readOnly={readonly}
         onMouseDown={onMouseDown}
       ></input>

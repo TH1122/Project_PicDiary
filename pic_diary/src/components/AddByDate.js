@@ -52,12 +52,6 @@ const AddByDate = ({ picData, setPicData }) => {
       })
     );
   };
-
-  // const test = (e) => {
-  //   console.log(newPicData);
-  //   console.log(data.title);
-  //   console.log(data);
-  // };
   useEffect(() => {
     setNewPicData(
       ...picData.filter((el) => el.date === date).map((el) => el.content)
@@ -65,6 +59,10 @@ const AddByDate = ({ picData, setPicData }) => {
     setData(...picData.filter((el) => el.date === date));
     setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
   }, []);
+
+  useEffect(() => {
+    console.log("picData changed");
+  }, [picData]);
 
   useEffect(() => {
     setNewPicData(
@@ -95,6 +93,7 @@ const AddByDate = ({ picData, setPicData }) => {
             return (
               <PicAdd
                 key={el.id}
+                date={date}
                 data={el}
                 picture={el.picture}
                 content={el.picture}
