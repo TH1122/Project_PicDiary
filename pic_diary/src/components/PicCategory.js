@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const PicCategory = ({ category, pic }) => {
+const PicCategory = ({ categoryData, category }) => {
+  const [storyCategory, setStoryCategory] = useState([]);
   const PicContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -37,27 +38,48 @@ const PicCategory = ({ category, pic }) => {
     > .storyWrapper {
       margin: 15px 0px;
       width: 300px;
-      height: 100px;
+      height: 40px;
       background-color: #c2c2c2;
+      display: flex;
+      flex-direction: column;
     }
   `;
-  const Title = styled.input`
-    margin: 15px 0px;
+  const Date = styled.span`
     width: 300px;
-    height: 100px;
+    height: 20px;
     background-color: #c2c2c2;
   `;
+  const Content = styled.span`
+    width: 300px;
+    height: 20px;
+    background-color: #c2c2c2;
+  `;
+
+  useEffect(() => {
+    setStoryCategory(categoryData[category]);
+  }, []);
+
+  console.log(storyCategory, "storyCategory");
 
   return (
     <>
       <PicContainer>
         <span className="category_title">{category}</span>
-        <PicWrapper>
-          <div className="photoContainer">
-            <img src={pic[category][0]} />
-          </div>
-          <Title value={category}></Title>
-        </PicWrapper>
+        {storyCategory.map((el) => {
+          return (
+            <>
+              <PicWrapper>
+                <div className="photoContainer">
+                  <img src={el.picture} />
+                </div>
+                <div className="storyWrapper">
+                  <Date>{el.date}</Date>
+                  <Content>{`${el.title} / ${el.text}`}</Content>
+                </div>
+              </PicWrapper>
+            </>
+          );
+        })}
       </PicContainer>
     </>
   );

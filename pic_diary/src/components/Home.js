@@ -4,26 +4,65 @@ import styled from "styled-components";
 
 const Home = ({ picData }) => {
   const [categories, setCategories] = useState([]);
-  const [pic, setPic] = useState({});
+  const [categoryData, setCategoryData] = useState({});
+  useEffect(() => {
+    //임시로 카테고리 추가
+    setCategories(["데이트", "김코딩과 함께한 날"]);
+  }, []);
+
+  // useEffect(() => {
+  //   //카테고리데이터가 배열일 경우
+  //   categories.forEach((el) => {
+  //     categoryData.push([el, []]);
+  //   });
+  //   setCategoryData(categoryData);
+  // }, [categories]);
+
+  // useEffect(() => {
+  //   // 카테고리데이터가 배열일 경우
+  //   picData.forEach((el) => {
+  //     el.content.forEach((content) => {
+  //       if (categories.includes(content.category)) {
+  //         categoryData[categories.indexOf(content.category)][1].push({
+  //           date: el.date,
+  //           picture: content.picture,
+  //           text: content.text,
+  //           title: el.title,
+  //         });
+  //       }
+  //     });
+  //   });
+  //   setCategoryData(categoryData);
+  // }, [categories]);
 
   useEffect(() => {
-    let temp = [];
-    picData.forEach((el) => {
-      if (!temp.includes(el.category)) temp.push(el.category);
+    //카테고리데이터가 객체일 경우
+    categories.forEach((el) => {
+      categoryData[el] = [];
     });
-    setCategories(temp);
-    let temp2 = {};
+    setCategoryData(categoryData);
+  }, [categories]);
+
+  useEffect(() => {
+    // 카테고리데이터가 객체일 경우
     picData.forEach((el) => {
-      if (temp.includes(el.category)) {
-        if (temp2[el.category]) {
-          temp2[el.category].push(el.content[0].picture);
-        } else {
-          temp2[el.category] = [el.content[0].picture];
+      el.content.forEach((content) => {
+        if (categories.includes(content.category)) {
+          categoryData[content.category].push({
+            date: el.date,
+            picture: content.picture,
+            text: content.text,
+            title: el.title,
+          });
         }
-      }
+      });
     });
-    setPic(temp2);
-  }, []);
+    setCategoryData(categoryData);
+  }, [categories]);
+
+  console.log(categoryData, "categoryData");
+  console.log(categories, "categories");
+
   const CategoryContainer = styled.section`
     display: flex;
     flex-direction: column;
@@ -33,8 +72,10 @@ const Home = ({ picData }) => {
   return (
     <>
       <CategoryContainer>
-        {categories.map((el) => {
-          return <PicCategory category={el} pic={pic} picData={picData} />;
+        {categories.map((el, idx) => {
+          return (
+            <PicCategory key={idx} categoryData={categoryData} category={el} />
+          );
         })}
       </CategoryContainer>
     </>
