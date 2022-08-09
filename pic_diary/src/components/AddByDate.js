@@ -8,6 +8,7 @@ const AddByDate = ({ picData, setPicData }) => {
   const [newPicData, setNewPicData] = useState([]);
   const [title, setTitle] = useState("");
   const [data, setData] = useState(null);
+  const [options, setOptions] = useState(["---"]);
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -58,8 +59,20 @@ const AddByDate = ({ picData, setPicData }) => {
     );
     setData(...picData.filter((el) => el.date === date));
     setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
+    picData.forEach((el) => {
+      el.content.forEach((content) => {
+        console.log(content.category);
+        if (
+          !options.includes(content.category) &&
+          content.category !== undefined
+        ) {
+          options.push(content.category);
+        }
+      });
+    });
+    setOptions(options);
   }, []);
-
+  console.log(options, "options");
   useEffect(() => {
     setNewPicData(
       ...picData.filter((el) => el.date === date).map((el) => el.content)
@@ -101,6 +114,7 @@ const AddByDate = ({ picData, setPicData }) => {
                 content={el.picture}
                 picData={picData}
                 setPicData={setPicData}
+                options={options}
               ></PicAdd>
             );
           })}

@@ -8,6 +8,7 @@ const PicAddStory = ({
   setPicData,
   picData,
   date,
+  options,
 }) => {
   const [button, setButton] = useState("활성화");
   const [readonly, setRO] = useState(true);
@@ -60,6 +61,15 @@ const PicAddStory = ({
         readOnly={readonly}
         onMouseDown={onMouseDown}
       ></input>
+      <select>
+        {options.map((el) => {
+          return (
+            <>
+              <option value={el}>{el}</option>
+            </>
+          );
+        })}
+      </select>
       <button onClick={onButton}>{button}</button>
       {button === "비활성화" ? (
         <button onClick={onContentDeleteClick}>전체 내용 삭제하기</button>
