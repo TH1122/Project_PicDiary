@@ -51,6 +51,31 @@ const PicAddStory = ({
     storyRef.current.value = data.text;
   }, []);
 
+  const handleOnChange = (e) => {
+    let temp = picData.map((el) => {
+      if (el.date === date) {
+        let temp5 = [];
+        el.content.forEach((content) => {
+          if (content.text !== storyRef.current.value) {
+            temp5.push(content);
+          } else {
+            if (e.target.value === "---") {
+              delete content.category;
+            } else {
+              content.category = e.target.value;
+            }
+            temp5.push(content);
+          }
+        });
+        el.content = temp5;
+        return el;
+      } else {
+        return el;
+      }
+    });
+    setPicData(temp);
+  };
+
   return (
     <>
       <input
@@ -61,15 +86,23 @@ const PicAddStory = ({
         readOnly={readonly}
         onMouseDown={onMouseDown}
       ></input>
-      <select>
-        {options.map((el) => {
-          return (
-            <>
-              <option value={el}>{el}</option>
-            </>
-          );
-        })}
-      </select>
+      {button === "비활성화" ? (
+        <select onChange={handleOnChange}>
+          {options.map((el) => {
+            return (
+              <>
+                {data.category === el ? (
+                  <option selected value={el}>
+                    {el}
+                  </option>
+                ) : (
+                  <option value={el}>{el}</option>
+                )}
+              </>
+            );
+          })}
+        </select>
+      ) : null}
       <button onClick={onButton}>{button}</button>
       {button === "비활성화" ? (
         <button onClick={onContentDeleteClick}>전체 내용 삭제하기</button>
