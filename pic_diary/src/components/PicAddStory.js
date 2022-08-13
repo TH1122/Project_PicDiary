@@ -1,27 +1,44 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const PicAddStory = ({
-  data,
-  text,
-  setText,
-  content,
-  setPicData,
-  picData,
-  date,
-  options,
-}) => {
+const PicAddStory = ({ data, content, setPicData, picData, date, options }) => {
   const [button, setButton] = useState("활성화");
+  const [text, setText] = useState("");
   const [readonly, setRO] = useState(true);
   const storyRef = useRef(null);
+  useEffect(() => {
+    setText(data.text);
+    storyRef.current.value = data.text;
+  }, []);
 
-  const onButton = () => {
+  const setData = () => {
+    let picData_newText = picData.map((el) => {
+      if (el.date === date) {
+        let content_newText = [];
+        el.content.forEach((content) => {
+          if (content.date_id !== data.date_id) {
+            content_newText.push(content);
+          } else {
+            content.text = text;
+            content_newText.push(content);
+          }
+        });
+        el.content = content_newText;
+        return el;
+      } else {
+        return el;
+      }
+    });
+    setPicData(picData_newText);
+  };
+
+  const onButton = (e) => {
     if (button === "활성화") {
       setButton("비활성화");
       setRO(false);
     } else {
       setButton("활성화");
       setRO(true);
-      setText(storyRef.current.value);
+      setData();
     }
   };
 
@@ -47,33 +64,33 @@ const PicAddStory = ({
     setPicData(temp);
   };
 
-  useEffect(() => {
-    storyRef.current.value = data.text;
-  }, []);
-
-  const handleOnChange = (e) => {
-    let temp = picData.map((el) => {
+  const handleCategory = (e) => {
+    let picData_newCategory = picData.map((el) => {
       if (el.date === date) {
-        let temp5 = [];
+        let content_newCategory = [];
         el.content.forEach((content) => {
           if (content.text !== storyRef.current.value) {
-            temp5.push(content);
+            content_newCategory.push(content);
           } else {
             if (e.target.value === "---") {
               delete content.category;
             } else {
               content.category = e.target.value;
             }
-            temp5.push(content);
+            content_newCategory.push(content);
           }
         });
-        el.content = temp5;
+        el.content = content_newCategory;
         return el;
       } else {
         return el;
       }
     });
-    setPicData(temp);
+    setPicData(picData_newCategory);
+  };
+
+  const onChange = (e) => {
+    setText(e.target.value);
   };
 
   return (
@@ -82,12 +99,13 @@ const PicAddStory = ({
         className="storyWrapper"
         type="text"
         ref={storyRef}
-        value={data.text}
+        value={text}
         readOnly={readonly}
         onMouseDown={onMouseDown}
+        onChange={onChange}
       ></input>
       {button === "비활성화" ? (
-        <select onChange={handleOnChange}>
+        <select onChange={handleCategory}>
           {options.map((el) => {
             return (
               <>
