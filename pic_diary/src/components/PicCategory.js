@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import styled from "styled-components";
+import "../../node_modules/slick-carousel/slick/slick.css";
+import "../../node_modules/slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const PicCategory = ({ categoryData, category }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   const [storyCategory, setStoryCategory] = useState([]);
   const PicContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 30px;
-
-    > .category_title {
-      display: flex;
-      justify-content: flex-start;
-      width: 210px;
-      background-color: grey;
-      margin: 10px;
-      padding: 10px;
-      vertical-align: middle;
-      font-weight: bold;
-    }
+    margin: 10px 0px 30px 0px;
   `;
+
   const PicWrapper = styled.div`
     background-color: #f2f2f2;
     width: 330px;
@@ -29,7 +30,6 @@ const PicCategory = ({ categoryData, category }) => {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
     > .photoContainer {
       margin: 15px 0px;
       width: 300px;
@@ -59,27 +59,61 @@ const PicCategory = ({ categoryData, category }) => {
     setStoryCategory(categoryData[category]);
   }, []);
 
-  console.log(storyCategory, "storyCategory");
+  const Wrap = styled.div`
+    width: 390px;
+    height: 520px;
 
+    > .category_title {
+      display: flex;
+      justify-content: flex-start;
+      width: 210px;
+      background-color: grey;
+      margin: 10px 10px 10px 30px;
+      padding: 10px;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+  `;
+
+  class SimpleSlider extends Component {
+    render() {
+      const Slider_wrapper = styled.div`
+        display: flex;
+        justify-content: center;
+      `;
+
+      return (
+        <>
+          <Slider {...settings}>
+            {storyCategory.map((el) => {
+              return (
+                <>
+                  <Slider_wrapper>
+                    <PicWrapper>
+                      <div className="photoContainer">
+                        <img src={el.picture} />
+                      </div>
+                      <div className="storyWrapper">
+                        <Date>{el.date}</Date>
+                        <Content>{`${el.title} / ${el.text}`}</Content>
+                      </div>
+                    </PicWrapper>
+                  </Slider_wrapper>
+                </>
+              );
+            })}
+          </Slider>
+        </>
+      );
+    }
+  }
   return (
     <>
       <PicContainer>
-        <span className="category_title">{category}</span>
-        {storyCategory.map((el) => {
-          return (
-            <>
-              <PicWrapper>
-                <div className="photoContainer">
-                  <img src={el.picture} />
-                </div>
-                <div className="storyWrapper">
-                  <Date>{el.date}</Date>
-                  <Content>{`${el.title} / ${el.text}`}</Content>
-                </div>
-              </PicWrapper>
-            </>
-          );
-        })}
+        <Wrap>
+          <span className="category_title">{category}</span>
+          <SimpleSlider className="carousel" />
+        </Wrap>
       </PicContainer>
     </>
   );
