@@ -9,6 +9,7 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
   const [title, setTitle] = useState("");
   const [data, setData] = useState(null);
   const [options, setOptions] = useState(["---"]);
+  const [rawData, setRawData] = useState(null);
 
   useEffect(() => {
     setIsPending(true);
@@ -22,8 +23,8 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
       .then((data) => {
         setNewPicData(data[0].content);
         setTitle(data[0].title);
-        setPicData(data);
         setIsPending(false);
+        setRawData(data);
       });
   }, []);
 
@@ -133,6 +134,8 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
                 picData={picData}
                 setPicData={setPicData}
                 options={options}
+                newPicData={newPicData}
+                rawData={rawData}
               ></PicAdd>
             );
           })}

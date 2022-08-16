@@ -1,6 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const PicAddStory = ({ data, content, setPicData, picData, date, options }) => {
+const PicAddStory = ({
+  data,
+  content,
+  setPicData,
+  picData,
+  date,
+  options,
+  newPicData,
+  rawData,
+}) => {
   const [button, setButton] = useState("활성화");
   const [text, setText] = useState("");
   const [readonly, setRO] = useState(true);
@@ -11,7 +20,25 @@ const PicAddStory = ({ data, content, setPicData, picData, date, options }) => {
   }, []);
 
   const setData = () => {
-    let picData_newText = picData.map((el) => {
+    // let picData_newText = picData.map((el) => {
+    //   if (el.date === date) {
+    //     let content_newText = [];
+    //     el.content.forEach((content) => {
+    //       if (content.date_id !== data.date_id) {
+    //         content_newText.push(content);
+    //       } else {
+    //         content.text = text;
+    //         content_newText.push(content);
+    //       }
+    //     });
+    //     el.content = content_newText;
+    //     return el;
+    //   } else {
+    //     return el;
+    //   }
+    // });
+    console.log(rawData, "raw");
+    let rawData_newText = rawData.map((el) => {
       if (el.date === date) {
         let content_newText = [];
         el.content.forEach((content) => {
@@ -28,7 +55,13 @@ const PicAddStory = ({ data, content, setPicData, picData, date, options }) => {
         return el;
       }
     });
-    setPicData(picData_newText);
+    fetch(`http://localhost:3001/diary/${rawData[0].id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rawData[0]),
+    });
   };
 
   const onButton = (e) => {
