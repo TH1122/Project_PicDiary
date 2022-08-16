@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Add = ({ picData, setPicData }) => {
+  const dateRef = useRef(null);
   let navigate = useNavigate();
   const Add_container = styled.div`
     width: 390px;
@@ -78,16 +79,30 @@ const Add = ({ picData, setPicData }) => {
     navigate(`/add/${e.target[0].value}`);
   };
 
+  const onFocus = () => {
+    fetch(`http://localhost:3001/diary/?date=${dateRef.current.value}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.length > 0) alert("해당 날짜 데이터로 이동합니다");
+        navigate(`/add/${dateRef.current.value}`);
+      });
+  };
+
   return (
     <>
       <Add_container>
         <Info_container onSubmit={handleSubmit}>
           <div className="info_wrapper">
             <label>
-              날짜 :<input type="date"></input>
+              날짜 :<input type="date" ref={dateRef}></input>
             </label>
             <label>
-              제목 :<input></input>
+              제목 :<input onFocus={onFocus}></input>
             </label>
           </div>
           <div className="icon_wrapper">
