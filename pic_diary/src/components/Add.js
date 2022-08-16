@@ -35,9 +35,30 @@ const Add = ({ picData, setPicData }) => {
     const getRandomNumber = (min, max) => {
       return parseInt(Math.random() * (Number(max) - Number(min) + 2));
     };
-    setPicData([
-      ...picData,
-      {
+    // setPicData([
+    //   ...picData,
+    //   {
+    //     id: picData.length,
+    //     date: e.target[0].value,
+    //     title: e.target[1].value,
+    //     content: [
+    //       {
+    //         date_id: 0,
+    //         picture: `https://picsum.photos/id/${getRandomNumber(
+    //           1,
+    //           98
+    //         )}/300/300`,
+    //         text: "",
+    //       },
+    //     ],
+    //   },
+    // ]);
+    fetch("http://localhost:3001/diary/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         id: picData.length,
         date: e.target[0].value,
         title: e.target[1].value,
@@ -51,8 +72,9 @@ const Add = ({ picData, setPicData }) => {
             text: "",
           },
         ],
-      },
-    ]);
+      }),
+    });
+
     navigate(`/add/${e.target[0].value}`);
   };
 
