@@ -3,12 +3,30 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PicAdd from "../UI_components/PicAdd";
 
-const AddByDate = ({ picData, setPicData }) => {
+const AddByDate = ({ picData, setPicData, setIsPending }) => {
   const { date } = useParams();
   const [newPicData, setNewPicData] = useState([]);
   const [title, setTitle] = useState("");
   const [data, setData] = useState(null);
   const [options, setOptions] = useState(["---"]);
+
+  useEffect(() => {
+    setIsPending(true);
+    fetch(`http://localhost:3001/diary/?date=${date}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setNewPicData(data[0].content);
+        setTitle(data[0].title);
+        setPicData(data);
+        setIsPending(false);
+      });
+  }, []);
+
   const Add_container = styled.div`
     width: 390px;
     height: 100%;
@@ -53,38 +71,38 @@ const AddByDate = ({ picData, setPicData }) => {
       })
     );
   };
-  useEffect(() => {
-    setNewPicData(
-      ...picData.filter((el) => el.date === date).map((el) => el.content)
-    );
-    setData(...picData.filter((el) => el.date === date));
-    setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
-    picData.forEach((el) => {
-      el.content.forEach((content) => {
-        console.log(content.category);
-        if (
-          !options.includes(content.category) &&
-          content.category !== undefined
-        ) {
-          options.push(content.category);
-        }
-      });
-    });
-    setOptions(options);
-  }, []);
-  console.log(options, "options");
-  useEffect(() => {
-    setNewPicData(
-      ...picData.filter((el) => el.date === date).map((el) => el.content)
-    );
-  }, [picData]);
+  // useEffect(() => {
+  //   setNewPicData(
+  //     ...picData.filter((el) => el.date === date).map((el) => el.content)
+  //   );
+  //   setData(...picData.filter((el) => el.date === date));
+  //   setTitle(...picData.filter((el) => el.date === date).map((el) => el.title));
+  //   picData.forEach((el) => {
+  //     el.content.forEach((content) => {
+  //       console.log(content.category);
+  //       if (
+  //         !options.includes(content.category) &&
+  //         content.category !== undefined
+  //       ) {
+  //         options.push(content.category);
+  //       }
+  //     });
+  //   });
+  //   setOptions(options);
+  // }, []);
+  // console.log(options, "options");
+  // useEffect(() => {
+  //   setNewPicData(
+  //     ...picData.filter((el) => el.date === date).map((el) => el.content)
+  //   );
+  // }, [picData]);
 
-  useEffect(() => {
-    setNewPicData(
-      ...picData.filter((el) => el.date === date).map((el) => el.content)
-    );
-    setData(...picData.filter((el) => el.date === date));
-  }, [data]);
+  // useEffect(() => {
+  //   setNewPicData(
+  //     ...picData.filter((el) => el.date === date).map((el) => el.content)
+  //   );
+  //   setData(...picData.filter((el) => el.date === date));
+  // }, [data]);
 
   return (
     <>

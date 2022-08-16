@@ -24,7 +24,7 @@ function App() {
         setIsPending(false);
         setPicData(data);
       });
-  }, []);
+  }, [isPending]);
 
   return (
     <>
@@ -47,7 +47,11 @@ function App() {
                 <Route
                   path="/add/:date"
                   element={
-                    <AddByDate picData={picData} setPicData={setPicData} />
+                    <AddByDate
+                      picData={picData}
+                      setPicData={setPicData}
+                      setIsPending={setIsPending}
+                    />
                   }
                 />
               </Routes>
