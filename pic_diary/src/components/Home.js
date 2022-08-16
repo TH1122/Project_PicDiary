@@ -6,8 +6,16 @@ const Home = ({ picData }) => {
   const [categories, setCategories] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   useEffect(() => {
-    //임시로 카테고리 추가
-    setCategories(["데이트", "김코딩과 함께한 날"]);
+    fetch("http://localhost:3001/categories/")
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setCategories(data.map((el) => el.category));
+      });
   }, []);
 
   // useEffect(() => {
@@ -59,9 +67,6 @@ const Home = ({ picData }) => {
     });
     setCategoryData(categoryData);
   }, [categories]);
-
-  console.log(categoryData, "categoryData");
-  console.log(categories, "categories");
 
   const CategoryContainer = styled.section`
     display: flex;

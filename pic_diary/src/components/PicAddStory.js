@@ -37,7 +37,6 @@ const PicAddStory = ({
     //     return el;
     //   }
     // });
-    console.log(rawData, "raw");
     let rawData_newText = rawData.map((el) => {
       if (el.date === date) {
         let content_newText = [];
