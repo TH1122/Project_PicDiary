@@ -88,8 +88,10 @@ const Add = ({ picData, setPicData }) => {
         return res.json();
       })
       .then((data) => {
-        if (data.length > 0) alert("해당 날짜 데이터로 이동합니다");
-        navigate(`/add/${dateRef.current.value}`);
+        if (data.length > 0) {
+          alert("해당 날짜 데이터로 이동합니다");
+          navigate(`/add/${dateRef.current.value}`);
+        }
       });
   };
 

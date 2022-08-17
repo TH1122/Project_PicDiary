@@ -18,7 +18,6 @@ const PicAddStory = ({
     setText(data.text);
     storyRef.current.value = data.text;
   }, []);
-
   const setData = () => {
     // let picData_newText = picData.map((el) => {
     //   if (el.date === date) {
@@ -37,7 +36,7 @@ const PicAddStory = ({
     //     return el;
     //   }
     // });
-    let rawData_newText = rawData.map((el) => {
+    rawData = rawData.map((el) => {
       if (el.date === date) {
         let content_newText = [];
         el.content.forEach((content) => {
@@ -81,6 +80,7 @@ const PicAddStory = ({
 
   const onContentDeleteClick = () => {
     storyRef.current.value = "";
+    setText("");
   };
 
   const onDeleteClick = () => {
@@ -97,28 +97,32 @@ const PicAddStory = ({
   };
 
   const handleCategory = (e) => {
-    let picData_newCategory = picData.map((el) => {
-      if (el.date === date) {
-        let content_newCategory = [];
-        el.content.forEach((content) => {
-          if (content.text !== storyRef.current.value) {
-            content_newCategory.push(content);
-          } else {
-            if (e.target.value === "---") {
-              delete content.category;
-            } else {
-              content.category = e.target.value;
-            }
-            content_newCategory.push(content);
-          }
-        });
-        el.content = content_newCategory;
-        return el;
-      } else {
-        return el;
-      }
-    });
-    setPicData(picData_newCategory);
+    // let picData_newCategory = picData.map((el) => {
+    //   if (el.date === date) {
+    //     let content_newCategory = [];
+    //     el.content.forEach((content) => {
+    //       if (content.text !== storyRef.current.value) {
+    //         content_newCategory.push(content);
+    //       } else {
+    //         if (e.target.value === "---") {
+    //           delete content.category;
+    //         } else {
+    //           content.category = e.target.value;
+    //         }
+    //         content_newCategory.push(content);
+    //       }
+    //     });
+    //     el.content = content_newCategory;
+    //     return el;
+    //   } else {
+    //     return el;
+    //   }
+    // });
+    // setPicData(picData_newCategory);
+    e.target.value === "---"
+      ? delete data.category
+      : (data.category = e.target.value);
+    setData();
   };
 
   const onChange = (e) => {

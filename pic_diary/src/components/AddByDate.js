@@ -3,11 +3,19 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PicAdd from "../UI_components/PicAdd";
 
-const AddByDate = ({ picData, setPicData, setIsPending }) => {
+const AddByDate = ({
+  picData,
+  setPicData,
+  setIsPending,
+  rawCategoryData,
+  categories,
+  setRawCategoryData,
+  setCategories,
+}) => {
   const { date } = useParams();
   const [newPicData, setNewPicData] = useState([]);
   const [title, setTitle] = useState("");
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   const [options, setOptions] = useState(["---"]);
   const [rawData, setRawData] = useState(null);
 
@@ -26,6 +34,7 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
         setIsPending(false);
         setRawData(data);
       });
+    setOptions([...options, ...categories]);
   }, []);
 
   const Add_container = styled.div`
@@ -64,13 +73,13 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
     const getRandomNumber = (min, max) => {
       return parseInt(Math.random() * (Number(max) - Number(min) + 2));
     };
-    setData(
-      (data.content[data.content.length] = {
-        date_id: data.content.length,
-        picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
-        text: "",
-      })
-    );
+    // setData(
+    //   (data.content[data.content.length] = {
+    //     date_id: data.content.length,
+    //     picture: `https://picsum.photos/id/${getRandomNumber(1, 98)}/300/300`,
+    //     text: "",
+    //   })
+    // );
   };
   // useEffect(() => {
   //   setNewPicData(
@@ -91,7 +100,7 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
   //   });
   //   setOptions(options);
   // }, []);
-  // console.log(options, "options");
+
   // useEffect(() => {
   //   setNewPicData(
   //     ...picData.filter((el) => el.date === date).map((el) => el.content)
@@ -121,7 +130,6 @@ const AddByDate = ({ picData, setPicData, setIsPending }) => {
             <button>사진추가</button>
           </div>
         </Info_container>
-        {/* <button onClick={test}>test</button> */}
         <Picadd_wrapper>
           {newPicData.map((el) => {
             return (

@@ -11,6 +11,8 @@ import AddByDate from "./components/AddByDate";
 function App() {
   const [picData, setPicData] = useState([]);
   const [isPending, setIsPending] = useState(true);
+  const [rawCategoryData, setRawCategoryData] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3001/diary/")
@@ -26,6 +28,20 @@ function App() {
       });
   }, [isPending]);
 
+  useEffect(() => {
+    fetch("http://localhost:3001/categories/")
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setRawCategoryData(data);
+        setCategories(data.map((el) => el.category));
+      });
+  }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -37,7 +53,17 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={!isPending && <Home picData={picData} />}
+                  element={
+                    !isPending && (
+                      <Home
+                        picData={picData}
+                        rawCategoryData={rawCategoryData}
+                        setRawCategoryData={setRawCategoryData}
+                        categories={categories}
+                        setCategories={setCategories}
+                      />
+                    )
+                  }
                 />
                 <Route path="/list" element={<List picData={picData} />} />
                 <Route
@@ -51,6 +77,10 @@ function App() {
                       picData={picData}
                       setPicData={setPicData}
                       setIsPending={setIsPending}
+                      rawCategoryData={rawCategoryData}
+                      setRawCategoryData={setRawCategoryData}
+                      categories={categories}
+                      setCategories={setCategories}
                     />
                   }
                 />
