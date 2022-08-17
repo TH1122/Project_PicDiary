@@ -13,6 +13,7 @@ function App() {
   const [isPending, setIsPending] = useState(true);
   const [rawCategoryData, setRawCategoryData] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3001/diary/")
@@ -26,7 +27,7 @@ function App() {
         setIsPending(false);
         setPicData(data);
       });
-  }, [isPending]);
+  }, [isPending, isChanged]);
 
   useEffect(() => {
     fetch("http://localhost:3001/categories/")
@@ -81,6 +82,8 @@ function App() {
                       setRawCategoryData={setRawCategoryData}
                       categories={categories}
                       setCategories={setCategories}
+                      isChanged={isChanged}
+                      setIsChanged={setIsChanged}
                     />
                   }
                 />

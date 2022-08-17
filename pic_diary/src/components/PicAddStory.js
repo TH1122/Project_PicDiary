@@ -74,6 +74,7 @@ const PicAddStory = ({
       setButton("활성화");
       setRO(true);
       setData();
+      setIsChanged(!isChanged);
     }
   };
 

@@ -11,14 +11,30 @@ const AddByDate = ({
   categories,
   setRawCategoryData,
   setCategories,
+  isChanged,
+  setIsChanged,
 }) => {
   const { date } = useParams();
   const [newPicData, setNewPicData] = useState([]);
   const [title, setTitle] = useState("");
   // const [data, setData] = useState(null);
-  const [options, setOptions] = useState(["---"]);
+  const [options, setOptions] = useState([]);
   const [rawData, setRawData] = useState(null);
-  const [isChanged, setIsChanged] = useState(false);
+  // const [isChanged, setIsChanged] = useState(false);
+  useEffect(() => {
+    fetch("http://localhost:3001/categories/")
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data, "data");
+        setRawCategoryData(data);
+        setCategories(data.map((el) => el.category));
+      });
+  }, []);
 
   useEffect(() => {
     setIsPending(true);
@@ -35,8 +51,8 @@ const AddByDate = ({
         setIsPending(false);
         setRawData(data);
       });
-    setOptions([...options, ...categories]);
-  }, [isChanged]);
+    setOptions(["---", ...categories]);
+  }, [categories]);
 
   const Add_container = styled.div`
     width: 390px;
