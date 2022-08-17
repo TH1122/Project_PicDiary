@@ -18,6 +18,7 @@ const AddByDate = ({
   // const [data, setData] = useState(null);
   const [options, setOptions] = useState(["---"]);
   const [rawData, setRawData] = useState(null);
+  const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     setIsPending(true);
@@ -35,7 +36,7 @@ const AddByDate = ({
         setRawData(data);
       });
     setOptions([...options, ...categories]);
-  }, []);
+  }, [isChanged]);
 
   const Add_container = styled.div`
     width: 390px;
@@ -144,6 +145,8 @@ const AddByDate = ({
                 options={options}
                 newPicData={newPicData}
                 rawData={rawData}
+                isChanged={isChanged}
+                setIsChanged={setIsChanged}
               ></PicAdd>
             );
           })}

@@ -12,6 +12,8 @@ const PicAdd = ({
   options,
   newPicData,
   rawData,
+  isChanged,
+  setIsChanged,
 }) => {
   const PicContainer = styled.div`
     background-color: #f2f2f2;
@@ -51,6 +53,8 @@ const PicAdd = ({
           options={options}
           newPicData={newPicData}
           rawData={rawData}
+          isChanged={isChanged}
+          setIsChanged={setIsChanged}
         ></PicAddStory>
       </PicContainer>
     </div>

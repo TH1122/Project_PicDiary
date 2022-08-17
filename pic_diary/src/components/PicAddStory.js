@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PicAddStory = ({
   data,
@@ -9,11 +10,14 @@ const PicAddStory = ({
   options,
   newPicData,
   rawData,
+  isChanged,
+  setIsChanged,
 }) => {
   const [button, setButton] = useState("활성화");
   const [text, setText] = useState("");
   const [readonly, setRO] = useState(true);
   const storyRef = useRef(null);
+  let navigate = useNavigate();
   useEffect(() => {
     setText(data.text);
     storyRef.current.value = data.text;
@@ -83,17 +87,37 @@ const PicAddStory = ({
     setText("");
   };
 
-  const onDeleteClick = () => {
-    let temp = picData;
-    temp.map((el) => {
-      if (el.date === date) {
-        el.content = el.content.filter(
-          (content) => content.text !== storyRef.current.value
-        );
-        console.log(el, "chagne");
-      }
-    });
-    setPicData(temp);
+  const onDeleteClick = (e) => {
+    // let temp = picData;
+    // temp.map((el) => {
+    //   if (el.date === date) {
+    //     el.content = el.content.filter(
+    //       (content) => content.text !== storyRef.current.value
+    //     );
+    //     console.log(el, "chagne");
+    //   }
+    // });
+    // setPicData(temp);
+    if (rawData[0].content.length === 1) {
+      fetch(`http://localhost:3001/diary/${rawData[0].id}`, {
+        method: "DELETE",
+      }).then((res) => {
+        navigate("/add/");
+      });
+    } else {
+      rawData[0].content = rawData[0].content.filter(
+        (el) => el.date_id !== data.date_id
+      );
+      fetch(`http://localhost:3001/diary/${rawData[0].id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(rawData[0]),
+      }).then((res) => {
+        setIsChanged(!isChanged);
+      });
+    }
   };
 
   const handleCategory = (e) => {
