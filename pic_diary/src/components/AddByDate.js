@@ -90,6 +90,25 @@ const AddByDate = ({
     const getRandomNumber = (min, max) => {
       return parseInt(Math.random() * (Number(max) - Number(min) + 2));
     };
+    fetch(`http://localhost:3001/diary/${rawData[0].id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: [
+          ...rawData[0].content,
+          {
+            date_id: `${rawData[0].content.length}`,
+            picture: `https://picsum.photos/id/${getRandomNumber(
+              1,
+              98
+            )}/300/300`,
+            text: "",
+          },
+        ],
+      }),
+    });
     // setData(
     //   (data.content[data.content.length] = {
     //     date_id: data.content.length,
