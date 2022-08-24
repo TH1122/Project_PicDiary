@@ -2,6 +2,20 @@ import React, { useState, useEffect } from "react";
 import PicCategory from "./PicCategory";
 import styled from "styled-components";
 
+const SettingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 10px;
+`;
+
+const CategoryContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Home = ({
   picData,
   rawCategoryData,
@@ -76,20 +90,6 @@ const Home = ({
     });
     setCategoryData(categoryData);
   }, [categories]);
-
-  const SettingContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 10px;
-  `;
-
-  const CategoryContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  `;
 
   const onSet = () => {
     setIsSetting(!isSetting);
