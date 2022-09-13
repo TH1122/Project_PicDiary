@@ -62,7 +62,12 @@ const Wrap = styled.div`
   }
 `;
 
-const PicCategory = ({ category, categories }) => {
+const PicCategory = ({
+  category,
+  categories,
+  picData,
+  categoryDataChanged,
+}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -85,7 +90,7 @@ const PicCategory = ({ category, categories }) => {
           data.filter((el) => el.category === category)[0].content
         );
       });
-  }, [categories]);
+  }, [categories, categoryDataChanged]);
 
   class SimpleSlider extends Component {
     render() {
